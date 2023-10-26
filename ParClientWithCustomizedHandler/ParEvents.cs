@@ -14,9 +14,14 @@ namespace ParClientWithCustomizedHandler
             _httpClient.SetBasicAuthentication(clientId, "secret");
 
             var requestBody = new FormUrlEncodedContent(context.ProtocolMessage.Parameters);
-            
-            // TODO - use discovery to determine endpoint
-            var response = await _httpClient.PostAsync("https://localhost:5001/connect/par", requestBody);
+
+            var disco = await _httpClient.GetDiscoveryDocumentAsync("https://localhost:5001");
+            if(disco.IsError)
+            {
+                throw new Exception(disco.Error);
+            }
+            var parEndpoint = disco.TryGetValue("pushed_authorization_request_endpoint").GetString();
+            var response = await _httpClient.PostAsync(parEndpoint, requestBody);
             if(!response.IsSuccessStatusCode)
             {
                 throw new Exception("PAR failure");

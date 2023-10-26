@@ -1,4 +1,3 @@
-using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -27,16 +26,6 @@ namespace SampleApi
 
         public void Configure(IApplicationBuilder app)
         {
-            // app.UseCors(policy =>
-            // {
-            //     policy.WithOrigins(
-            //         "https://localhost:44300");
-
-            //     policy.AllowAnyHeader();
-            //     policy.AllowAnyMethod();
-            //     policy.WithExposedHeaders("WWW-Authenticate");
-            // });
-
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

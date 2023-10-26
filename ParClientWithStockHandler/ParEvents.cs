@@ -46,13 +46,19 @@ namespace ParClientWithStockHandler
             _httpClient.SetBasicAuthentication(clientId, "secret");
             
             // TODO - use discovery to determine endpoint
-            var response = await _httpClient.PostAsync("https://localhost:5001/connect/par", requestBody);
+            var disco = await _httpClient.GetDiscoveryDocumentAsync("https://localhost:5001");
+            if(disco.IsError)
+            {
+                throw new Exception(disco.Error);
+            }
+            var parEndpoint = disco.TryGetValue("pushed_authorization_request_endpoint").GetString();
+            var response = await _httpClient.PostAsync(parEndpoint, requestBody);
             if(!response.IsSuccessStatusCode)
             {
                 throw new Exception("PAR failure");
             }
             var par = await response.Content.ReadFromJsonAsync<ParResponse>();
-
+            
             // Remove all the parameters from the protocol message, and replace with what we got from the PAR response
             context.ProtocolMessage.Parameters.Clear();
             // Then, set client id and request uri as parameters
@@ -62,7 +68,7 @@ namespace ParClientWithStockHandler
             // ****************************************************************
             // Mark the request as handled, because we don't want the normal
             // behavior that attaches state to the outgoing request (we already
-            // did that in the PAR request).
+            // did that in the PAR request). 
             // ****************************************************************
             context.HandleResponse();
 
