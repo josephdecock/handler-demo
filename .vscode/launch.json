@@ -1,0 +1,79 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "IdentityServer",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-identity-server",
+            "program": "${workspaceFolder}/IdentityServer/bin/Debug/net8.0/IdentityServer.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/IdentityServer",
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "console": "externalTerminal",
+          },
+
+
+          {
+            "name": "Client - Stock Handler",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-client-par-stock",
+            "program": "${workspaceFolder}/ParClientWithStockHandler/bin/Debug/net8.0/ParClientWithStockHandler.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/ParClientWithStockHandler",
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "console": "externalTerminal",
+          },
+
+
+          {
+            "name": "Client - Customized Handler",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-client-par-customized",
+            "program": "${workspaceFolder}/ParClientWithCustomizedHandler/bin/Debug/net8.0/ParClientWithCustomizedHandler.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/ParClientWithCustomizedHandler",
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "console": "externalTerminal",
+          },
+
+          {
+            "name": "API",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-api-simple",
+            "program": "${workspaceFolder}/SimpleApi/bin/Debug/net8.0/SimpleApi.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/SimpleApi",
+            "console": "externalTerminal",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            
+          },
+    ]
+}
