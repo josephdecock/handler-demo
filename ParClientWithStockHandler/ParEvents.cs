@@ -45,7 +45,6 @@ namespace ParClientWithStockHandler
             var requestBody = new FormUrlEncodedContent(context.ProtocolMessage.Parameters);
             _httpClient.SetBasicAuthentication(clientId, "secret");
             
-            // TODO - use discovery to determine endpoint
             var disco = await _httpClient.GetDiscoveryDocumentAsync("https://localhost:5001");
             if(disco.IsError)
             {
